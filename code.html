@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicons -->
+    <link href="/img/fizzbuzz.png" rel="icon">
+    <link href="/img/favicon_apple_touch_trans.png" rel="apple-touch-icon">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.21.0/themes/prism-twilight.min.css"
+        integrity="sha512-akb4nfKzpmhujLUyollw5waBPeohuVf0Z5+cL+4Ngc4Db+V8szzx6ZTujguFjpmD076W8LImVIbOblmQ+vZMKA=="
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/site.css">
+    <link rel="stylesheet" href="/css/fizzbuzz.css">
+</head>
+
+<body>
+    <header>
+        <!-- Fixed navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
+            <div class="container">
+
+                <a class="navbar-brand" href="index.html">
+                    <img src="/img/favicon_apple_touch_trans.png" width="50"> Fizz Buzz</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="app.html">The App</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="code.html">See The Code</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://github.com/Young-Jung/FizzBuzz" target="_blank">Get The
+                                Code</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://youngjung.netlify.app/" target="_blank">About</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main role="main" class="container">
+        <div class="container-fluid">
+            <div class="dogContainer">
+                <div class="row">
+                    <div class="col">
+                        <h1 style="margin-top: 30px;">FizzBuzz: A Coding Challenge</h1>
+                        <strong>FizzBuzz is a the Division Game.</strong>
+                        <br><br>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-7 col-md-7 col-lg">
+
+
+                    </div>
+
+                </div>
+                <!-- <div class="row">
+
+                    <div class="col-sm-6 order-first order-md-2">
+                        <img src="/img/TacoCat_NoLetter.png" class="img-fluid p-2 ">
+                    </div>
+                </div> -->
+                <div class="row">
+                    <div class="col-lg-10 col-md-10 line-numbers">
+                        <pre><code class="language-javascript">
+// Display the numbers on the page
+function displayFizzBuzzData(numFizz, numBuzz, numbers) {
+    const rowTemplate = document.getElementById("Data-Template");
+    const resultsBody = document.getElementById("resultsBody");
+    // same as importNode (can be outside this html)
+    let colCount = rowTemplate.content.cloneNode(true).querySelectorAll("td").length;
+    // Clear the table
+    resultsBody.innerHTML = "";
+
+    // Loop over every element in the numbers array
+    // get the value and write it to the page
+    for (let i = 0; i < numbers.length; i += colCount) {
+        let dataRow = rowTemplate.content.cloneNode(true);
+
+        // Return an array of columns from the template   
+        let cols = dataRow.querySelectorAll("td");
+
+        // Loop over the columns
+        for (let colIndex = 0; colIndex < cols.length; colIndex++) {
+            let value = numbers[i + colIndex];
+
+            if (typeof value === "undefined") {
+                value = "";
+                // } else if (value % 2 == 0) {
+
+                //     cols[colIndex].classList.add("boidIt");
+            } else {
+                if (value % (numFizz * numBuzz) == 0) {
+                    value = "FizzBuzz";
+                    cols[colIndex].classList.add("fizzbuzzIt");
+
+                    // Solution 1
+                    // let img = document.createElement('img');
+                    // img.src = '/img/fizzbuzz.png';
+                    // cols[colIndex].appendChild(img);
+                    // cols[colIndex].innerHTML += "<br>";
+
+                    // Solution 2 -- I don't like it but working
+                    cols[colIndex].innerHTML += '<img src="/img/fizzbuzz.png"><br>';
+                    // cols[colIndex].textContent += '<img src="/img/bee.png"><br>';
+                    // cols[colIndex].innerHTML += "<br>";
+                    // cols[colIndex].textContent += value;
+                } else if (value % numFizz == 0) {
+                    value = "Fizz";
+                    cols[colIndex].classList.add("fizzIt");
+                    cols[colIndex].innerHTML += '<img src="/img/fizz.png"><br>';
+                } else if (value % numBuzz == 0) {
+                    value = "Buzz";
+                    cols[colIndex].classList.add("buzzIt");
+                    cols[colIndex].innerHTML += '<img src="/img/bee.png"><br>';
+                } else {
+                    cols[colIndex].innerHTML += '<br>';
+                }
+            }
+            // Note: td's use textContent to set content
+            // ****** textContent will not parse the HTML
+            // ****** innerHTML only worked for both Solution 1 and Solution 2
+            cols[colIndex].innerHTML += value;
+
+
+            //cols[colIndex].textContent += value;
+        }
+        // Add the row to the page
+        resultsBody.appendChild(dataRow);
+    }
+
+}
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6 text-muted">&copy; Young Jung 2021</div>
+                <div class="col-lg-9 col-md-6 col-sm-6 text-muted" style="font-size:0.7rem;text-align: right;">
+                    Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a>
+                    from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+    <script src="/js/prismTomorrow.js"></script>
+</body>
+
+</html>
